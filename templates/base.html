@@ -49,7 +49,10 @@
                         <a class="nav-link px-3" href="{% url 'services_list' %}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="{% url 'portfolio_list' %}">Portfolio</a>
+                        <a class="nav-link px-3" href="{% url 'products_list' %}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{% url 'team' %}">Team</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link px-3" href="{% url 'contact' %}">Contact</a>
@@ -156,8 +159,10 @@
                     <ul class="list-unstyled mb-0">
                         <li class="mb-2"><a href="{% url 'services_list' %}"
                                 class="text-muted text-decoration-none">Services</a></li>
-                        <li class="mb-2"><a href="{% url 'portfolio_list' %}"
-                                class="text-muted text-decoration-none">Portfolio</a></li>
+                        <li class="mb-2"><a href="{% url 'products_list' %}"
+                                class="text-muted text-decoration-none">Products</a></li>
+                        <li class="mb-2"><a href="{% url 'team' %}"
+                                class="text-muted text-decoration-none">Team</a></li>
                         <li class="mb-2"><a href="{% url 'contact' %}"
                                 class="text-muted text-decoration-none">Contact</a></li>
                     </ul>

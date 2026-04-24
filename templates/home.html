@@ -4,79 +4,325 @@
 {% block content %}
 
 <!-- ===========================
-     1. HERO & ABOUT SECTION
+     1. HERO SECTION — UPGRADED
      =========================== -->
-<section class="py-5" style="background-color: var(--bg-dark); min-height: 80vh;">
-    <div class="container py-5">
-        <div class="row align-items-center g-5">
+<section class="irym-hero">
+    <!-- Animated background layers -->
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-glow hero-bg-glow--red"></div>
+    <div class="hero-bg-glow hero-bg-glow--orange"></div>
 
-            <!-- Left: Profile Image & Links -->
-            <div class="col-lg-4 text-center">
-                <div class="position-relative d-inline-block hover-scale mb-4">
-                    <img src="{% static 'images/irym-DARK-logo-phnx.png' %}" alt="IRYM Phoenix Logo"
-                        class="img-fluid" style="max-width: 280px; width: 100%; transition: filter 0.3s ease;">
+    <div class="container position-relative py-5" style="min-height:92vh; display:flex; align-items:center;">
+        <div class="row align-items-center g-5 w-100">
+
+            <!-- LEFT: Logo + floating badges -->
+            <div class="col-lg-5 text-center order-lg-1 order-2">
+                <div class="hero-logo-wrap">
+                    <div class="hero-logo-ring"></div>
+                    <img src="{% static 'images/irym-DARK-logo-phnx.png' %}" alt="IRYM Phoenix"
+                         class="hero-logo-img" id="hero-logo-img">
+
+                    <!-- Floating skill badges -->
+                    <div class="hero-badge hero-badge--tl">
+                        <i class="fas fa-robot me-1"></i> Agents
+                    </div>
+                    <div class="hero-badge hero-badge--tr">
+                        <i class="fas fa-database me-1"></i> RAG
+                    </div>
+                    <div class="hero-badge hero-badge--bl">
+                        <i class="fas fa-comments me-1"></i> Chatbots
+                    </div>
+                    <div class="hero-badge hero-badge--br">
+                        <i class="fas fa-microchip me-1"></i> LLMs
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center gap-2 flex-wrap">
-                    <a href="https://linkedin.com/company/irym" target="_blank" class="hover-scale">
-                        <img src="https://img.shields.io/badge/LinkedIn-Follow-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"
-                            alt="LinkedIn" style="height: 32px; border-radius: 6px;">
-                    </a>
-                    <a href="mailto:contact@irym.ai" target="_blank" class="hover-scale">
-                        <img src="https://img.shields.io/badge/Email-Inquiry-EA4335?style=for-the-badge&logo=gmail&logoColor=white"
-                            alt="Email" style="height: 32px; border-radius: 6px;">
-                    </a>
+
+                <!-- Quick stat pills -->
+                <div class="d-flex justify-content-center gap-3 flex-wrap mt-5">
+                    <div class="hero-stat-pill">
+                        <span class="hero-stat-num" data-target="50">0</span><span>+</span>
+                        <span class="hero-stat-label">Projects</span>
+                    </div>
+                    <div class="hero-stat-pill">
+                        <span class="hero-stat-num" data-target="12">0</span><span>+</span>
+                        <span class="hero-stat-label">AI Products</span>
+                    </div>
+                    <div class="hero-stat-pill">
+                        <span class="hero-stat-num" data-target="30">0</span><span>+</span>
+                        <span class="hero-stat-label">Clients</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Right: Hero Title & Bio -->
-            <div class="col-lg-8 text-center text-lg-start">
-                <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=26&duration=4000&pause=1000&center=false&vCenter=true&multiline=true&width=600&height=90&color=CF0A0A&lines=We+are+IRYM;Building+the+Future+of+AI;Autonomous+Agents+%26+Robots"
-                    alt="Typing SVG" class="img-fluid mb-3" />
+            <!-- RIGHT: Text content -->
+            <div class="col-lg-7 order-lg-2 order-1 text-center text-lg-start">
+                <div class="hero-eyebrow mb-3">
+                    <span class="hero-eyebrow__dot"></span>
+                    <span>AI Engineering Company</span>
+                </div>
 
-                <h3 class="fs-5 text-muted mx-auto mx-lg-0 mb-4"
-                    style="max-width:600px; font-style:italic; font-weight:400; line-height:1.6;">
-                    Developing state-of-the-art
-                    <span style="color: var(--primary-color); font-weight:700;">AI ecosystems</span>
-                    that empower industries
-                </h3>
+                <h1 class="hero-headline mb-4">
+                    We Build<br>
+                    <span class="hero-headline--gradient">Intelligent</span><br>
+                    Systems
+                </h1>
 
-                <!-- About card -->
-                <div class="position-relative overflow-hidden rounded-4 p-4 p-md-5" style="background: var(--bg-card-gradient);
-                            border: 1px solid var(--border-subtle);
-                            box-shadow: var(--shadow-card);">
+                <p class="hero-sub mb-5">
+                    <strong>IRYM</strong> engineers production-ready AI — from autonomous agents
+                    and RAG pipelines to custom chatbots and robotic systems.
+                    We turn complex ideas into deployed intelligence.
+                </p>
 
-                    <!-- Decorative robot icon -->
-                    <div class="position-absolute top-0 end-0 p-4" style="opacity:0.07; pointer-events:none;">
-                        <i class="fas fa-robot"
-                            style="font-size:7rem; color:var(--primary-color); transform:rotate(15deg);"></i>
-                    </div>
+                <!-- CTA Buttons -->
+                <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start mb-5">
+                    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold hero-cta-primary">
+                        Start a Project <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                    <a href="{% url 'products_list' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5 fw-bold">
+                        Our Products
+                    </a>
+                </div>
 
-                    <p class="fs-5 fw-bold mb-3" style="color:var(--primary-color);">
-                        Engineering Tomorrow's Intelligence Today
-                    </p>
-                    <p class="text-light mb-4" style="opacity:0.88; line-height:1.75; font-size:0.97rem;">
-                        <strong>IRYM (I Can Read Your Mind)</strong> is a forward-thinking AI technology firm
-                        dedicated to building <strong>advanced AI systems</strong> and <strong>robotic solutions</strong>.
-                        We specialize in Large Language Models (LLMs), Retrieval-Augmented Generation (RAGs),
-                        autonomous agents, and bespoke AI products that solve complex business challenges.
-                    </p>
-                    <hr style="border-color:var(--border-subtle);">
-                    <div class="d-flex flex-wrap gap-4 text-light justify-content-center justify-content-lg-start mt-3">
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fas fa-microchip fs-5" style="color:var(--secondary-color);"></i>
-                            <span class="fw-600">AI-First Approach</span>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fas fa-network-wired fs-5" style="color:var(--secondary-color);"></i>
-                            <span class="fw-600">Autonomous Agents &amp; RAGs</span>
-                        </div>
-                    </div>
+                <!-- Feature tags row -->
+                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                    <span class="hero-tag"><i class="fas fa-check-circle me-1" style="color:var(--secondary-color);"></i> Custom RAG Pipelines</span>
+                    <span class="hero-tag"><i class="fas fa-check-circle me-1" style="color:var(--secondary-color);"></i> LLM Fine-tuning</span>
+                    <span class="hero-tag"><i class="fas fa-check-circle me-1" style="color:var(--secondary-color);"></i> AI Agents</span>
+                    <span class="hero-tag"><i class="fas fa-check-circle me-1" style="color:var(--secondary-color);"></i> Robotics</span>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+
+<!-- ===========================
+     1b. STATS BAR
+     =========================== -->
+<section class="stats-bar">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-item__num" data-target="50">0<span>+</span></div>
+                    <div class="stat-item__label">AI Projects Shipped</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-item__num" data-target="12">0<span>+</span></div>
+                    <div class="stat-item__label">Products Built</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-item__num" data-target="98">0<span>%</span></div>
+                    <div class="stat-item__label">Client Satisfaction</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-item__num" data-target="7">0<span>+</span></div>
+                    <div class="stat-item__label">AI Domains Covered</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* ======================== HERO ======================== */
+.irym-hero {
+    background: #000;
+    position: relative; overflow: hidden;
+}
+.hero-bg-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+        linear-gradient(rgba(207,10,10,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(207,10,10,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+.hero-bg-glow {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    filter: blur(100px); opacity: 0.55;
+}
+.hero-bg-glow--red {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(207,10,10,0.35) 0%, transparent 70%);
+    top: -200px; right: -100px;
+    animation: glowPulse 6s ease-in-out infinite;
+}
+.hero-bg-glow--orange {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(220,95,0,0.2) 0%, transparent 70%);
+    bottom: -100px; left: 10%;
+    animation: glowPulse 8s ease-in-out infinite reverse;
+}
+@keyframes glowPulse {
+    0%,100% { transform: scale(1); opacity: 0.55; }
+    50% { transform: scale(1.15); opacity: 0.75; }
+}
+
+/* Logo wrap */
+.hero-logo-wrap {
+    position: relative; display: inline-block;
+}
+.hero-logo-ring {
+    position: absolute; inset: -20px; border-radius: 50%;
+    border: 1px solid rgba(207,10,10,0.2);
+    animation: spin 20s linear infinite;
+}
+.hero-logo-ring::before {
+    content: '';
+    position: absolute; top: -3px; left: 50%; transform: translateX(-50%);
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero-logo-img {
+    max-width: 300px; width: 100%;
+    filter: drop-shadow(0 0 40px rgba(207,10,10,0.4));
+    animation: float 4s ease-in-out infinite;
+    position: relative; z-index: 1;
+}
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Floating badges */
+.hero-badge {
+    position: absolute; z-index: 2;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(207,10,10,0.3);
+    border-radius: 10px;
+    padding: 0.4em 0.85em;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--secondary-color);
+    white-space: nowrap;
+    animation: float 4s ease-in-out infinite;
+}
+.hero-badge--tl { top: 10%; left: -20px; animation-delay: 0.5s; }
+.hero-badge--tr { top: 10%; right: -20px; animation-delay: 1s; }
+.hero-badge--bl { bottom: 20%; left: -30px; animation-delay: 1.5s; }
+.hero-badge--br { bottom: 20%; right: -30px; animation-delay: 0.8s; }
+
+/* Stat pills */
+.hero-stat-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 0.6rem 1rem;
+    text-align: center; min-width: 80px;
+}
+.hero-stat-num {
+    display: block; font-size: 1.4rem; font-weight: 900;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Fira Code', monospace;
+}
+.hero-stat-label {
+    display: block; font-size: 0.65rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;
+}
+
+/* Text */
+.hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--secondary-color);
+}
+.hero-eyebrow__dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--secondary-color);
+    box-shadow: 0 0 8px var(--secondary-color);
+    animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+.hero-headline {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--text-light);
+}
+.hero-headline--gradient {
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+    font-size: 1.1rem; color: var(--text-muted);
+    line-height: 1.8; max-width: 520px;
+}
+.hero-cta-primary {
+    box-shadow: 0 0 30px rgba(207,10,10,0.4);
+    animation: ctaGlow 3s ease-in-out infinite;
+}
+@keyframes ctaGlow {
+    0%,100% { box-shadow: 0 0 25px rgba(207,10,10,0.4); }
+    50% { box-shadow: 0 0 45px rgba(220,95,0,0.6); }
+}
+.hero-tag {
+    display: inline-block; padding: 0.3em 0.85em;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px; font-size: 0.8rem; color: var(--text-muted);
+}
+
+/* ======================== STATS BAR ======================== */
+.stats-bar {
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0;
+}
+.stat-item {
+    padding: 2rem 1.5rem; text-align: center;
+    border-right: 1px solid var(--border-subtle);
+    transition: background 0.3s;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item:hover { background: rgba(207,10,10,0.04); }
+.stat-item__num {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900; font-family: 'Fira Code', monospace;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.stat-item__label {
+    font-size: 0.78rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;
+}
+</style>
+
+<script>
+/* Animated counter */
+document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.stat-item__num, .hero-stat-num');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.dataset.target || el.textContent);
+            const suffix = el.innerHTML.match(/<span>(.*?)<\/span>/)?.[1] || '';
+            let current = 0;
+            const step = Math.max(1, Math.ceil(target / 60));
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.innerHTML = current + (suffix ? `<span>${suffix}</span>` : '');
+                if (current >= target) clearInterval(timer);
+            }, 25);
+            observer.unobserve(el);
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(c => observer.observe(c));
+});
+</script>
 
 <!-- ===========================
      2. TECH STACK
@@ -243,15 +489,15 @@
 </section>
 
 <!-- ===========================
-     4. LATEST PROJECTS
+     4. FEATURED PRODUCTS
      =========================== -->
 <section class="py-5" style="background-color:var(--bg-dark); border-top:1px solid var(--border-subtle);">
     <div class="container py-4">
         <div
             class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-5 gap-3">
-            <h2 class="section-title mb-0">Latest Projects</h2>
-            <a href="{% url 'portfolio_list' %}" class="btn btn-outline-primary rounded-pill px-4">
-                View All Projects &rarr;
+            <h2 class="section-title mb-0">Featured Products</h2>
+            <a href="{% url 'products_list' %}" class="btn btn-outline-primary rounded-pill px-4">
+                View All Products &rarr;
             </a>
         </div>
 
@@ -306,7 +552,7 @@
     <div class="container py-4">
         <div
             class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-5 gap-3">
-            <h2 class="section-title mb-0">What I Offer</h2>
+            <h2 class="section-title mb-0">What We Offer</h2>
             <a href="{% url 'services_list' %}" class="btn btn-outline-primary rounded-pill px-4">
                 View All Services &rarr;
             </a>
@@ -346,18 +592,78 @@
 </section>
 
 <!-- ===========================
-     6. CALL TO ACTION
+     6. CALL TO ACTION — UPGRADED
      =========================== -->
-<section class="py-5" style="background-color:var(--bg-dark); border-top:1px solid var(--border-subtle);">
-    <div class="container text-center py-5">
-        <h2 class="display-6 fw-bold mb-3 text-light">Ready to build the future of AI?</h2>
-        <p class="fs-5 text-muted mb-5 mx-auto" style="max-width:650px;">
-            Partner with IRYM to develop highly intelligent, autonomous systems that turn your vision into reality.
+<section class="cta-section">
+    <div class="cta-section__bg-grid"></div>
+    <div class="cta-section__glow"></div>
+    <div class="container text-center py-5 position-relative">
+        <span class="cta-eyebrow mb-4 d-inline-block">
+            <i class="fas fa-fire-alt me-2"></i>Let's Build Together
+        </span>
+        <h2 class="cta-headline mb-4">
+            Ready to build the<br>
+            <span class="cta-headline--gradient">Future of AI?</span>
+        </h2>
+        <p class="cta-sub mx-auto mb-5">
+            Partner with IRYM to develop highly intelligent, autonomous systems
+            that turn your vision into deployed, production-ready reality.
         </p>
-        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg">
-            Start a Project <i class="fas fa-paper-plane ms-2"></i>
-        </a>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'contact' %}" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold cta-btn-primary">
+                Start a Project <i class="fas fa-paper-plane ms-2"></i>
+            </a>
+            <a href="{% url 'team' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5 py-3 fw-bold">
+                Meet the Team <i class="fas fa-users ms-2"></i>
+            </a>
+        </div>
     </div>
 </section>
+
+<style>
+.cta-section {
+    background: #000;
+    position: relative; overflow: hidden;
+    border-top: 1px solid var(--border-subtle);
+    padding: 5rem 0;
+}
+.cta-section__bg-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+        linear-gradient(rgba(207,10,10,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(207,10,10,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+.cta-section__glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(207,10,10,0.18) 0%, rgba(220,95,0,0.08) 40%, transparent 70%);
+    pointer-events: none;
+    animation: glowPulse 5s ease-in-out infinite;
+}
+.cta-eyebrow {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--secondary-color);
+    background: rgba(220,95,0,0.08); border: 1px solid rgba(220,95,0,0.2);
+    padding: 0.4em 1.2em; border-radius: 999px;
+}
+.cta-headline {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900; line-height: 1.1; color: var(--text-light);
+}
+.cta-headline--gradient {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.cta-sub {
+    font-size: 1.1rem; color: var(--text-muted);
+    line-height: 1.8; max-width: 580px;
+}
+.cta-btn-primary {
+    animation: ctaGlow 3s ease-in-out infinite;
+}
+</style>
 
 {% endblock %}

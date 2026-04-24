@@ -76,3 +76,19 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.name}"
+
+
+class TeamMember(models.Model):
+    name = models.CharField(max_length=200)
+    role = models.CharField(max_length=200)
+    bio = models.TextField(blank=True)
+    image = models.ImageField(upload_to='team/', blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    order = models.PositiveIntegerField(default=0, help_text='Lower numbers appear first')
+
+    class Meta:
+        ordering = ['order', 'name']
+
+    def __str__(self):
+        return f"{self.name} - {self.role}"

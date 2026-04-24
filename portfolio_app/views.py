@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
-from .models import Service, Project, ServiceRequest, ContactMessage, ProjectMedia
+from .models import Service, Project, ServiceRequest, ContactMessage, ProjectMedia, TeamMember
 from .forms import ServiceRequestForm, ContactForm, ProjectForm, ServiceForm
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -36,11 +36,18 @@ def portfolio_list(request):
     else:
         projects = Project.objects.all()
     
-    return render(request, 'portfolio.html', {
+    return render(request, 'products.html', {
         'projects': projects,
         'active_type': project_type,
         'project_types': Project.PROJECT_TYPES
     })
+
+# Alias for new URL name
+products_list = portfolio_list
+
+def team(request):
+    members = TeamMember.objects.all()
+    return render(request, 'team.html', {'members': members})
 
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)

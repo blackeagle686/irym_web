@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Products - IRYM AI Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ========================
+     PAGE HERO
+     ======================== -->
+<section class="products-hero-section py-5">
+    <div class="products-hero-glow"></div>
+    <div class="container py-5 text-center position-relative">
+        <span class="products-eyebrow mb-3 d-inline-block">
+            <i class="fas fa-cubes me-2"></i>Built by IRYM
+        </span>
+        <h1 class="products-hero-title fw-black mb-4">
+            Our <span class="gradient-text">AI Products</span>
+        </h1>
+        <p class="products-hero-sub mx-auto mb-5">
+            Real-world AI systems, intelligent agents, RAG pipelines, and autonomous solutions
+            engineered by IRYM to solve complex business challenges.
+        </p>
+
+        <!-- Filter Pills -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+            <a href="{% url 'products_list' %}"
+                class="filter-pill {% if not active_type %}active{% endif %}">
+                <i class="fas fa-th me-1"></i> All
+            </a>
+            {% for type_code, type_name in project_types %}
+            <a href="{% url 'products_list' %}?type={{ type_code }}"
+                class="filter-pill {% if active_type == type_code %}active{% endif %}">
+                {% if type_code == 'agents' %}<i class="fas fa-robot me-1"></i>
+                {% elif type_code == 'rag' %}<i class="fas fa-database me-1"></i>
+                {% elif type_code == 'chatbot' %}<i class="fas fa-comments me-1"></i>
+                {% elif type_code == 'backend' %}<i class="fas fa-server me-1"></i>
+                {% elif type_code == 'fullstack' %}<i class="fas fa-layer-group me-1"></i>
+                {% endif %}
+                {{ type_name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ========================
+     PRODUCTS GRID
+     ======================== -->
+<section class="py-5" style="background-color:var(--bg-dark); border-top:1px solid var(--border-subtle);">
+    <div class="container py-4">
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-sm-6 col-lg-4">
+                <div class="product-card">
+                    <!-- Top accent bar -->
+                    <div class="product-card__accent"></div>
+
+                    {% if project.image %}
+                    <div class="product-card__img-wrap">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                        <div class="product-card__img-overlay">
+                            <i class="fas fa-expand-alt fs-4 text-white"></i>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="product-card__placeholder">
+                        {% if project.project_type == 'agents' %}
+                            <i class="fas fa-robot"></i>
+                        {% elif project.project_type == 'rag' %}
+                            <i class="fas fa-database"></i>
+                        {% elif project.project_type == 'chatbot' %}
+                            <i class="fas fa-comments"></i>
+                        {% else %}
+                            <i class="fas fa-microchip"></i>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <div class="product-card__body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="product-card__badge">{{ project.get_project_type_display }}</span>
+                            <div class="product-card__dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <h3 class="product-card__title">{{ project.title }}</h3>
+                        <p class="product-card__desc">{{ project.description|truncatewords:22 }}</p>
+                        <div class="product-card__techs mb-4">
+                            {% for tech in project.tech_list %}
+                            <span class="tech-badge">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'project_detail' project.pk %}"
+                                class="btn btn-primary flex-grow-1 fw-bold rounded-pill">
+                                Explore <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                            {% if project.demo_link %}
+                            <a href="{{ project.demo_link }}" target="_blank"
+                                class="btn btn-outline-primary rounded-pill px-3" title="Live Demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <div class="empty-state__icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4 class="text-light mb-2">Products Launching Soon</h4>
+                    <p class="text-muted mb-0">Our team is building groundbreaking AI systems. Check back soon.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ========================
+     CTA STRIP
+     ======================== -->
+<section class="py-5" style="background: linear-gradient(135deg, #0a0000 0%, #1a0500 50%, #0a0000 100%); border-top:1px solid var(--border-subtle);">
+    <div class="container text-center py-3">
+        <h2 class="fw-bold fs-2 text-light mb-3">Have a product idea in mind?</h2>
+        <p class="text-muted fs-5 mb-4 mx-auto" style="max-width:520px;">
+            IRYM's team of AI engineers will turn your vision into a deployed, production-ready system.
+        </p>
+        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold">
+            Start a Conversation <i class="fas fa-paper-plane ms-2"></i>
+        </a>
+    </div>
+</section>
+
+<style>
+/* ---- Products Hero ---- */
+.products-hero-section {
+    background: radial-gradient(ellipse at 50% 0%, rgba(207,10,10,0.15) 0%, transparent 60%),
+                linear-gradient(180deg, #050000 0%, #000 100%);
+    position: relative;
+    overflow: hidden;
+}
+.products-hero-glow {
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(220,95,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+.products-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    background: rgba(220,95,0,0.08);
+    border: 1px solid rgba(220,95,0,0.2);
+    padding: 0.4em 1.2em;
+    border-radius: 999px;
+}
+.products-hero-title {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    color: var(--text-light);
+    line-height: 1.1;
+}
+.products-hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.8;
+}
+.gradient-text {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ---- Filter Pills ---- */
+.filter-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45em 1.2em;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-subtle);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.filter-pill:hover, .filter-pill.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(207,10,10,0.35);
+}
+
+/* ---- Product Cards ---- */
+.product-card {
+    background: var(--bg-card-gradient);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    position: relative;
+}
+.product-card__accent {
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+.product-card:hover .product-card__accent { transform: scaleX(1); }
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-card-hover);
+}
+.product-card__img-wrap {
+    position: relative; height: 200px; overflow: hidden;
+}
+.product-card__img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.product-card:hover .product-card__img-wrap img { transform: scale(1.08); }
+.product-card__img-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.product-card:hover .product-card__img-overlay { opacity: 1; }
+.product-card__placeholder {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(207,10,10,0.07), rgba(220,95,0,0.04));
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 3rem; color: var(--primary-color); opacity: 0.35;
+}
+.product-card__body {
+    padding: 1.4rem 1.5rem;
+    display: flex; flex-direction: column; flex: 1;
+}
+.product-card__badge {
+    display: inline-block;
+    padding: 0.28em 0.85em;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    border-radius: 999px;
+    background: rgba(220,95,0,0.1);
+    color: var(--secondary-color);
+    border: 1px solid rgba(220,95,0,0.25);
+}
+.product-card__dots span {
+    display: inline-block; width: 7px; height: 7px;
+    border-radius: 50%; margin-left: 4px;
+}
+.product-card__dots span:nth-child(1) { background: #ff5f57; }
+.product-card__dots span:nth-child(2) { background: #ffbd2e; }
+.product-card__dots span:nth-child(3) { background: #28ca41; }
+.product-card__title {
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--text-light); margin-bottom: 0.6rem; line-height: 1.4;
+}
+.product-card__desc {
+    font-size: 0.88rem; color: var(--text-muted);
+    line-height: 1.65; flex-grow: 1; margin-bottom: 1rem;
+}
+.product-card__techs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+/* ---- Empty State ---- */
+.empty-state {
+    text-align: center; padding: 5rem 2rem;
+    border: 2px dashed var(--border-subtle);
+    border-radius: var(--card-radius);
+    background: var(--bg-card);
+}
+.empty-state__icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, rgba(207,10,10,0.12), rgba(220,95,0,0.08));
+    border-radius: 50%; margin: 0 auto 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: var(--primary-color);
+}
+</style>
+{% endblock %}

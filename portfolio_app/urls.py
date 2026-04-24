@@ -8,9 +8,11 @@ urlpatterns = [
     path('services/add/', views.add_service, name='add_service'),
     path('services/<int:pk>/edit/', views.edit_service, name='edit_service'),
     path('services/<int:pk>/delete/', views.delete_service, name='delete_service'),
-    path('portfolio/', views.portfolio_list, name='portfolio_list'),
+    path('products/', views.products_list, name='products_list'),
+    path('portfolio/', views.portfolio_list, name='portfolio_list'),  # keep for backward compat
     path('portfolio/<int:pk>/', views.project_detail, name='project_detail'),
     path('portfolio/<int:pk>/edit/', views.edit_project, name='edit_project'),
     path('portfolio/add/', views.add_project, name='add_project'),
+    path('team/', views.team, name='team'),
     path('contact/', views.contact, name='contact'),
 ]
