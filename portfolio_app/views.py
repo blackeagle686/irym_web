@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import Service, Project, ServiceRequest, ContactMessage, ProjectMedia, TeamMember
-from .forms import ServiceRequestForm, ContactForm, ProjectForm, ServiceForm
+from .forms import ServiceRequestForm, ContactForm, ProjectForm, ServiceForm, TeamMemberForm
 from django.contrib.admin.views.decorators import staff_member_required
 
 def home(request):
@@ -145,3 +145,45 @@ def delete_service(request, pk):
     # If someone accesses via GET, just show the detail page or handle properly. 
     # Usually a confirmation page, but we'll use a fast post form in detail template.
     return redirect('service_detail', pk=service.pk)
+@staff_member_required
+def delete_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    if request.method == 'POST':
+        project.delete()
+        messages.success(request, "Project deleted successfully!")
+        return redirect('portfolio_list')
+    return redirect('project_detail', pk=project.pk)
+
+@staff_member_required
+def add_team_member(request):
+    if request.method == 'POST':
+        form = TeamMemberForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Team member added successfully!")
+            return redirect('team')
+    else:
+        form = TeamMemberForm()
+    return render(request, 'add_team.html', {'form': form, 'is_edit': False})
+
+@staff_member_required
+def edit_team_member(request, pk):
+    member = get_object_or_404(TeamMember, pk=pk)
+    if request.method == 'POST':
+        form = TeamMemberForm(request.POST, request.FILES, instance=member)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Team member updated successfully!")
+            return redirect('team')
+    else:
+        form = TeamMemberForm(instance=member)
+    return render(request, 'add_team.html', {'form': form, 'is_edit': True, 'member': member})
+
+@staff_member_required
+def delete_team_member(request, pk):
+    member = get_object_or_404(TeamMember, pk=pk)
+    if request.method == 'POST':
+        member.delete()
+        messages.success(request, "Team member removed successfully!")
+        return redirect('team')
+    return redirect('team')

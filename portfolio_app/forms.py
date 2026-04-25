@@ -1,5 +1,5 @@
 from django import forms
-from .models import ServiceRequest, ContactMessage, Project, Service
+from .models import ServiceRequest, ContactMessage, Project, Service, TeamMember
 
 class ServiceRequestForm(forms.ModelForm):
     class Meta:
@@ -58,4 +58,17 @@ class ProjectForm(forms.ModelForm):
             'image': forms.FileInput(attrs={'class': 'form-control'}),
             'demo_link': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://demo.com'}),
             'github_link': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://github.com/username/repo'}),
+        }
+class TeamMemberForm(forms.ModelForm):
+    class Meta:
+        model = TeamMember
+        fields = ['name', 'role', 'bio', 'image', 'linkedin', 'github', 'order']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
+            'role': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Role (e.g. Lead AI Engineer)'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Brief bio...'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'linkedin': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://linkedin.com/in/...'}),
+            'github': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://github.com/...'}),
+            'order': forms.NumberInput(attrs={'class': 'form-control'}),
         }

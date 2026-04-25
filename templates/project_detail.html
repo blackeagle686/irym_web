@@ -5,9 +5,9 @@
 {% block content %}
 <section class="py-5">
     <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb glass-breadcrumb px-4 py-2 rounded-pill shadow-sm">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fas fa-home me-1"></i> Home</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'portfolio_list' %}">Portfolio</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
             </ol>
@@ -15,7 +15,10 @@
 
         <div class="row mt-4">
             <div class="col-lg-8">
-                <h1 class="display-4 fw-bold mb-3">{{ project.title }}</h1>
+                <div class="project-header mb-5">
+                    <h1 class="display-3 fw-extrabold mb-3 title-glow">{{ project.title }}</h1>
+                    <div class="header-line"></div>
+                </div>
                 <div class="mb-4">
                     {% for tech in project.tech_list %}
                     <span class="tech-badge px-3 py-2">{{ tech }}</span>
@@ -103,47 +106,48 @@
 
             <!-- Right Sidebar Panel -->
             <div class="col-lg-4">
-                <div class="p-4 rounded-4 shadow-lg position-relative overflow-hidden mb-4"
-                    style="background-color: var(--bg-card); border: 1px solid var(--accent-color); border-top: 4px solid var(--primary-color) !important;">
-                    <div class="position-absolute top-0 end-0 p-3 opacity-25">
-                        <i class="fas fa-rocket pe-2"
-                            style="font-size: 6rem; color: var(--primary-color); transform: rotate(15deg);"></i>
+                <div class="project-overview-card p-3 rounded-4 shadow-lg position-relative overflow-hidden mb-4">
+                    <!-- Background Accent Decoration -->
+                    <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                        <i class="fas fa-rocket pe-2" style="font-size: 8rem; transform: rotate(15deg); color: var(--primary-color);"></i>
                     </div>
 
-                    <h4 class="h5 fw-bold mb-4" style="color: var(--text-light); position: relative; z-index: 2;">
-                        Project Overview</h4>
+                    <h4 class="h5 fw-bold mb-4 d-flex align-items-center" style="color: var(--text-light); position: relative; z-index: 2;">
+                        <span class="overview-dot me-2"></span> Project Overview
+                    </h4>
 
-                    <div class="mb-4 position-relative" style="z-index: 2;">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold letter-spacing-1">Completion Date</p>
-                        <p class="fs-5 text-light fw-bold"><i class="far fa-calendar-alt me-2"
-                                style="color: var(--primary-color);"></i>{{ project.created_at|date:"F Y" }}</p>
+                    <div class="overview-info-grid mb-4 position-relative" style="z-index: 2;">
+                        <div class="overview-item">
+                            <p class="overview-label">Completion Date</p>
+                            <p class="overview-value"><i class="far fa-calendar-alt me-2"></i>{{ project.created_at|date:"F Y" }}</p>
+                        </div>
+
+                        <div class="overview-item">
+                            <p class="overview-label">Category</p>
+                            <p class="overview-value"><i class="fas fa-laptop-code me-2"></i>AI Development</p>
+                        </div>
                     </div>
 
-                    <div class="mb-4 position-relative" style="z-index: 2;">
-                        <p class="mb-1 text-muted small text-uppercase fw-bold letter-spacing-1">Category</p>
-                        <p class="fs-5 text-light fw-bold"><i class="fas fa-laptop-code me-2"
-                                style="color: var(--primary-color);"></i>AI Development</p>
-                    </div>
-
-                    <hr style="border-color: rgba(255,255,255,0.1); position: relative; z-index: 2;">
+                    <hr class="overview-divider">
 
                     <div class="d-grid gap-3 mt-4 position-relative" style="z-index: 2;">
                         {% if project.demo_link %}
-                        <a href="{{ project.demo_link }}" class="btn btn-primary fw-bold rounded-pill" target="_blank">
-                            Live Demo <i class="bi bi-box-arrow-up-right ms-2"></i>
+                        <a href="{{ project.demo_link }}" class="btn btn-primary btn-sm fw-bold rounded-pill overview-btn-primary py-2" target="_blank">
+                            Live Demo <i class="fas fa-external-link-alt ms-2"></i>
                         </a>
                         {% endif %}
                         {% if project.github_link %}
-                        <a href="{{ project.github_link }}" class="btn btn-outline-light fw-bold rounded-pill"
-                            target="_blank">
-                            GitHub Repository <i class="bi bi-github ms-2"></i>
+                        <a href="{{ project.github_link }}" class="btn btn-outline-light btn-sm fw-bold rounded-pill overview-btn-outline py-2" target="_blank">
+                            GitHub Repository <i class="fab fa-github ms-2"></i>
                         </a>
                         {% endif %}
+                        
                         {% if request.user.is_authenticated and request.user.is_staff %}
-                        <a href="{% url 'edit_project' project.pk %}"
-                            class="btn btn-warning fw-bold text-dark rounded-pill mt-2">
-                            <i class="fas fa-edit me-2"></i> Edit Project
-                        </a>
+                        <div class="admin-actions mt-2 pt-3 border-top border-secondary border-opacity-25">
+                            <a href="{% url 'edit_project' project.pk %}" class="btn btn-warning w-100 fw-bold text-dark rounded-pill">
+                                <i class="fas fa-edit me-2"></i> Edit Project
+                            </a>
+                        </div>
                         {% endif %}
                     </div>
                 </div>
@@ -183,6 +187,167 @@
     .letter-spacing-1 {
         letter-spacing: 1px;
     }
+
+    /* === Project Overview Sidebar Enhancements === */
+    .project-overview-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-top: 4px solid var(--primary-color) !important;
+        transition: all 0.4s ease;
+    }
+
+    [data-theme="light"] .project-overview-card {
+        background: rgba(0, 0, 0, 0.02);
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .overview-dot {
+        width: 10px;
+        height: 10px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--primary-color);
+        display: inline-block;
+    }
+
+    .overview-info-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+    }
+
+    .overview-label {
+        margin-bottom: 0.25rem;
+        text-muted;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+    }
+
+    .overview-value {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    [data-theme="light"] .overview-value {
+        color: var(--text-dark);
+    }
+
+    .overview-value i {
+        color: var(--primary-color);
+        width: 24px;
+    }
+
+    .overview-divider {
+        border-color: rgba(255, 255, 255, 0.1);
+        opacity: 0.5;
+    }
+
+    [data-theme="light"] .overview-divider {
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .overview-btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        box-shadow: 0 5px 15px rgba(242, 97, 63, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .overview-btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(242, 97, 63, 0.5);
+    }
+
+    .overview-btn-outline {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .overview-btn-outline:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--text-light);
+        transform: translateY(-3px);
+    }
+
+    /* === Animated Border for Card === */
+    .project-overview-card::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: conic-gradient(transparent, var(--primary-color), transparent, var(--secondary-color), transparent);
+        animation: rotateBorder 6s linear infinite;
+        z-index: 0;
+        opacity: 0.3;
+    }
+
+    .project-overview-card::after {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        background: var(--bg-card);
+        border-radius: 15px;
+        z-index: 1;
+    }
+
+    [data-theme="light"] .project-overview-card::after {
+        background: #f8f9fa;
+    }
+
+    @keyframes rotateBorder {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* === Header & Breadcrumbs === */
+    .glass-breadcrumb {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        display: inline-flex;
+    }
+
+    [data-theme="light"] .glass-breadcrumb {
+        background: rgba(0, 0, 0, 0.03);
+        border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .glass-breadcrumb a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .glass-breadcrumb a:hover {
+        color: var(--primary-color);
+    }
+
+    .title-glow {
+        color: var(--text-light);
+        text-shadow: 0 0 20px rgba(242, 97, 63, 0.2);
+    }
+
+    [data-theme="light"] .title-glow {
+        color: var(--text-dark);
+        text-shadow: none;
+    }
+
+    .header-line {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        border-radius: 2px;
+    }
+
+    .fw-extrabold { font-weight: 900; }
 </style>
 {% endblock %}
 

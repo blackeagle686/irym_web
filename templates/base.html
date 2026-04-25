@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}IRYM - I Can Read Your Mind | AI Systems & Products{% endblock %}</title>
+    <title>{% block title %}I Can Read Your Mind | AI Systems & Products{% endblock %}</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,55 +32,60 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
-                <img src="{% static 'images/irym-DARK-logo-phnx.png' %}" alt="IRYM Logo" id="navbar-logo" style="height: 45px; width: auto; transition: transform 0.3s ease;">
-                <span class="d-none d-sm-inline fw-bold fs-4 logo-ai">
-                    <span class="logo-first">IRYM</span>
+                <img src="{% static 'images/irym-DARK-logo-phnx.png' %}" alt="IRYM Logo" id="navbar-logo" style="height: 38px; width: 38px; object-fit: cover; border-radius: 50%; transition: transform 0.3s ease; border: 2px solid var(--primary-color);">
+                <span class="d-none d-lg-inline fw-bold logo-ai" style="font-size: 0.95rem;">
+                    <span class="logo-first">I Can Read Your Mind</span>
                 </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center header-nav-list">
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="{% url 'services_list' %}">Services</a>
+                        <a class="nav-link" href="{% url 'services_list' %}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="{% url 'products_list' %}">Products</a>
+                        <a class="nav-link" href="{% url 'products_list' %}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="{% url 'team' %}">Team</a>
+                        <a class="nav-link" href="{% url 'team' %}">Team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="{% url 'contact' %}">Contact</a>
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                     </li>
                     {% if request.user.is_authenticated and request.user.is_staff %}
-                    <li class="nav-item dropdown px-2 text-center">
-                        <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" id="adminDropdown"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle admin-nav-link" href="#" id="adminDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-shield-alt me-1"></i> Admin
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="adminDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end glass-dropdown" aria-labelledby="adminDropdown">
                             <li><a class="dropdown-item" href="{% url 'add_project' %}"><i
-                                        class="fas fa-cloud-upload-alt me-2 text-primary"></i> Upload Project</a></li>
+                                        class="fas fa-plus-circle me-2 text-primary"></i> Add Product</a></li>
+                            <li><a class="dropdown-item" href="{% url 'add_team_member' %}"><i
+                                        class="fas fa-user-plus me-2 text-info"></i> Add Team</a></li>
                             <li><a class="dropdown-item" href="{% url 'add_service' %}"><i
                                         class="fas fa-concierge-bell me-2 text-secondary"></i> Add Service</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/admin/" target="_blank"><i
+                                        class="fas fa-cogs me-2 text-warning"></i> Django Admin</a></li>
                         </ul>
                     </li>
                     {% endif %}
 
 
 
-                    <li class="nav-item ms-lg-3 d-flex align-items-center">
-                        <button id="theme-toggle" class="btn btn-link nav-link px-2 mt-1" title="Toggle Theme">
+                    <li class="nav-item d-flex align-items-center">
+                        <button id="theme-toggle" class="theme-btn-compact" title="Toggle Theme">
                             <i class="fas fa-moon" id="theme-icon"></i>
                         </button>
                     </li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-primary" href="{% url 'contact' %}">Get Started</a>
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-get-started" href="{% url 'contact' %}">Get Started</a>
                     </li>
                 </ul>
             </div>
@@ -109,17 +114,29 @@
         function updateIcon(theme) {
             const navbarLogo = document.getElementById('navbar-logo');
             const footerLogo = document.getElementById('footer-logo');
+            const heroLogo = document.getElementById('hero-logo-img');
+            const nav = document.querySelector('.navbar');
             
             if (theme === 'light') {
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
+                if (nav) {
+                    nav.classList.remove('navbar-dark');
+                    nav.classList.add('navbar-light');
+                }
                 if (navbarLogo) navbarLogo.src = "{% static 'images/IRYM-LIGHT-LOGO.png' %}";
                 if (footerLogo) footerLogo.src = "{% static 'images/IRYM-LIGHT-LOGO.png' %}";
+                if (heroLogo) heroLogo.src = "{% static 'images/IRYM-LIGHT-LOGO.png' %}";
             } else {
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
+                if (nav) {
+                    nav.classList.remove('navbar-light');
+                    nav.classList.add('navbar-dark');
+                }
                 if (navbarLogo) navbarLogo.src = "{% static 'images/irym-DARK-logo-phnx.png' %}";
                 if (footerLogo) footerLogo.src = "{% static 'images/irym-DARK-logo-phnx.png' %}";
+                if (heroLogo) heroLogo.src = "{% static 'images/irym-DARK-logo-phnx.png' %}";
             }
         }
     </script>
@@ -139,15 +156,15 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <footer class="py-5 mt-auto">
         <div class="container">
             <div class="row g-4 mb-4">
                 <!-- Brand -->
                 <div class="col-md-4">
                     <a href="{% url 'home' %}" class="d-flex align-items-center gap-2 mb-3 text-decoration-none">
-                        <img src="{% static 'images/irym-DARK-logo-phnx.png' %}" alt="IRYM Logo" id="footer-logo" style="height: 40px; width: auto;">
+                        <img src="{% static 'images/irym-DARK-logo-phnx.png' %}" alt="IRYM Logo" id="footer-logo" style="height: 40px; width: 40px; object-fit: cover; border-radius: 50%; border: 1px solid var(--primary-color);">
                         <span class="fw-bold fs-5 logo-ai">
-                            <span class="logo-first">IRYM</span>
+                            <span class="logo-first">I Can Read Your Mind</span>
                         </span>
                     </a>
                     <p class="text-muted small mt-2" style="max-width:240px;">Building the future with intelligent
@@ -181,7 +198,7 @@
                 </div>
             </div>
             <hr style="border-color: var(--border-subtle);">
-            <p class="text-muted small mb-0 text-center">&copy; 2024 IRYM — I Can Read Your Mind. All
+            <p class="text-muted small mb-0 text-center">&copy; 2024 I Can Read Your Mind. All
                 rights reserved.</p>
         </div>
     </footer>

@@ -13,6 +13,10 @@ urlpatterns = [
     path('portfolio/<int:pk>/', views.project_detail, name='project_detail'),
     path('portfolio/<int:pk>/edit/', views.edit_project, name='edit_project'),
     path('portfolio/add/', views.add_project, name='add_project'),
+    path('portfolio/<int:pk>/delete/', views.delete_project, name='delete_project'),
     path('team/', views.team, name='team'),
+    path('team/add/', views.add_team_member, name='add_team_member'),
+    path('team/<int:pk>/edit/', views.edit_team_member, name='edit_team_member'),
+    path('team/<int:pk>/delete/', views.delete_team_member, name='delete_team_member'),
     path('contact/', views.contact, name='contact'),
 ]
